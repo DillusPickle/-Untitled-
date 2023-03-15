@@ -65,6 +65,8 @@ function draw() {
 
         player.hp = 3;
 
+        camera.zoom = 1;
+
         gameState = 'game';
       }
     }

@@ -12,7 +12,7 @@ class Player{
         this.staff = createSprite(x,y,20,20);
         this.staff.addImage('sprite', this.staffimage);
 
-        this.sprite.maxSpeed = 7;
+        this.sprite.maxSpeed = 8;
         this.sprite.velocity.y = 0;
         this.sprite.velocity.x = 0;
 
