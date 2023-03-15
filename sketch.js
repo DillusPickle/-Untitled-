@@ -1,4 +1,4 @@
-var player, map
+var player, map;
 
 var gameState, menuState;
 
@@ -111,6 +111,7 @@ function draw() {
     textFont(BJG);
     fill(rgb(194, 175, 163));
     text(player.score, 40, 80);
+
 
     player.movement();
     player.stafflogic();

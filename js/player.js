@@ -7,14 +7,16 @@ class Player{
         this.staffimage = loadImage(staffimage);
 
         this.sprite.addImage('sprite', this.image)
-        this.sprite.setCollider('rectangle',0,0,24,24);
+        this.sprite.setCollider('rectangle',0,0,22,22);
 
         this.staff = createSprite(x,y,20,20);
         this.staff.addImage('sprite', this.staffimage);
 
         this.sprite.maxSpeed = 7;
-        this.sprite.velocityY = 0;
-        this.sprite.velocityX = 0;
+        this.sprite.velocity.y = 0;
+        this.sprite.velocity.x = 0;
+
+        //this.sprite.debug = true
         
         this.score = 0;
 
@@ -52,23 +54,33 @@ class Player{
 
     movement(){
         if(keyDown('w')||keyDown(UP_ARROW)){
-            this.sprite.velocityY -= 0.8;
+            this.sprite.velocity.y -= 0.8;
+            //camera.y -= 0.8;
         }
         if(keyDown('a')||keyDown(LEFT_ARROW)){
-            this.sprite.velocityX -= 0.8;
+            this.sprite.velocity.x -= 0.8;
             this.sprite.mirrorX(-1);
+            //camera.x -= 0.8;
         }
         if(keyDown('d')||keyDown(RIGHT_ARROW)){
-            this.sprite.velocityX += 0.8;
+            this.sprite.velocity.x += 0.8;
             this.sprite.mirrorX(1);
+            //camera.x += 0.8;
         }
         if(keyDown('s')||keyDown(DOWN_ARROW)){
-            this.sprite.velocityY += 0.8;
+            this.sprite.velocity.y += 0.8;
+            //camera.y += 0.8;
         }
         if(keyIsPressed == false){
-            this.sprite.velocityY = lerp(0,this.sprite.velocityY,0.75);
-            this.sprite.velocityX = lerp(0,this.sprite.velocityX,0.75);
+            this.sprite.velocity.y = lerp(0,this.sprite.velocity.y,0.75);
+            this.sprite.velocity.x = lerp(0,this.sprite.velocity.x,0.75);
         }
+
+        camera.x = lerp(this.sprite.x,camera.x,0.83);
+        camera.y = lerp(this.sprite.y,camera.y,0.83);
+
+        // camera.x = this.sprite.x;
+        // camera.y = this.sprite.y;
     }
 
     stafflogic(atkSFX, sfxOn){
@@ -76,7 +88,7 @@ class Player{
         this.staff.x = this.sprite.x;
         this.staff.y = this.sprite.y;
 
-        this.staff.pointTo(mouseX, mouseY);
+        this.staff.pointTo(camera.mouseX, camera.mouseY);
 
         this.staff.rotation += 45;
 
@@ -90,8 +102,8 @@ class Player{
             spell.visible = false;
             spell.setCollider('rectangle',0,0,12,6)
             //spell.debug = true;
-            spell.attractionPoint(7, mouseX, mouseY);
-            spell.pointTo(mouseX, mouseY);
+            spell.attractionPoint(7, camera.mouseX, camera.mouseY);
+            spell.pointTo(camera.mouseX, camera.mouseY);
             this.spells.add(spell);
 
             this.cooldown = this.timer;
