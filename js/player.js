@@ -34,21 +34,22 @@ class Player{
         this.hp3.addImage('icon',this.heartImg);
 
         this.cooldown = 0;
-        this.timer = 7;
+        this.timer = 3;
+        this.charge = 0;
         this.bulletdistance = 20;
-        this.bulletsize = [8, 3];
+        this.bulletsize = [19, 3];
         this.spells = new Group();
 
         this.of;
 
-        var p = {color:['orange'], angle: [0, 360], shape: 'rect', size: [5,3], sizePercent: 0.96};
-        this.of = new Fountain(null, p, -1200, -1200);
+        // var p = {color:['orange'], angle: [0, 360], shape: 'rect', size: [5,3], sizePercent: 0.96};
+        // this.of = new Fountain(null, p, -1200, -1200);
 
-        var p2 = {color:['red'], angle: [0, 360], shape: 'rect', size: [3,2], sizePercent: 0.93};
-        this.of2 = new Fountain(null, p2, -1200, -1200);
+        // var p2 = {color:['red'], angle: [0, 360], shape: 'rect', size: [3,2], sizePercent: 0.93};
+        // this.of2 = new Fountain(null, p2, -1200, -1200);
 
-        var p3 = {color:['yellow'], angle: [0, 360], shape: 'rect', size: [2,1.5], sizePercent: 0.89};
-        this.of3 = new Fountain(null, p3, -1200, -1200);
+        // var p3 = {color:['yellow'], angle: [0, 360], shape: 'rect', size: [2,1.5], sizePercent: 0.89};
+        // this.of3 = new Fountain(null, p3, -1200, -1200);
 
     }
 
@@ -92,21 +93,54 @@ class Player{
 
         this.staff.rotation += 45;
 
-        if(mouseWentDown(LEFT)&&this.cooldown == 0){
-            if(sfxOn == true){
-                atkSFX.play();
-            }
+        // if(mouseWentDown(LEFT)&&this.cooldown == 0){
+        //     if(sfxOn == true){
+        //         atkSFX.play();
+        //     }
             
+        //     var spell = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
+        //     spell.lifetime = this.bulletdistance;
+        //     //spell.visible = false;
+        //     spell.setCollider('rectangle',0,0,12,6)
+        //     spell.debug = true;
+        //     spell.attractionPoint(7, camera.mouseX, camera.mouseY);
+        //     spell.pointTo(camera.mouseX, camera.mouseY);
+        //     this.spells.add(spell);
+
+        //     this.cooldown = this.timer;
+        // }
+
+        // if(this.cooldown != 0){
+        //     this.cooldown -= 0.1;
+        // }
+        // if(this.cooldown < 0){
+        //     this.cooldown = 0;
+        // }
+
+        if(mouseDown(LEFT)&&this.cooldown == 0){
+            this.charge += 0.1;
+
+            stroke(100);
+            strokeWeight(3);
+            noFill();
+            arc(this.sprite.x, this.sprite.y, 40, 40, -PI, 100*-(this.charge+0.5), 10);
+        }
+        else{
+            this.charge = 0;
+        }
+
+        if(this.charge >= 3){
             var spell = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
-            spell.lifetime = this.bulletdistance;
-            spell.visible = false;
+            //spell.lifetime = this.bulletdistance;
+            //spell.visible = false;
             spell.setCollider('rectangle',0,0,12,6)
             //spell.debug = true;
-            spell.attractionPoint(7, camera.mouseX, camera.mouseY);
+            spell.attractionPoint(9, camera.mouseX, camera.mouseY);
             spell.pointTo(camera.mouseX, camera.mouseY);
             this.spells.add(spell);
 
             this.cooldown = this.timer;
+            this.charge = 0;
         }
 
         if(this.cooldown != 0){
@@ -116,23 +150,23 @@ class Player{
             this.cooldown = 0;
         }
         
-        push();
-        for(spell in this.spells){
-            this.of.CreateN(this.spells[spell].x, this.spells[spell].y);
+        // push();
+        // for(spell in this.spells){
+        //     this.of.CreateN(this.spells[spell].x, this.spells[spell].y);
 
-            this.of2.CreateN(this.spells[spell].x, this.spells[spell].y);
+        //     this.of2.CreateN(this.spells[spell].x, this.spells[spell].y);
 
-            this.of3.CreateN(this.spells[spell].x, this.spells[spell].y);
-        }
-        this.of.Draw();
-        this.of.Step();
+        //     this.of3.CreateN(this.spells[spell].x, this.spells[spell].y);
+        // }
+        // this.of.Draw();
+        // this.of.Step();
 
-        this.of2.Draw();
-        this.of2.Step();
+        // this.of2.Draw();
+        // this.of2.Step();
 
-        this.of3.Draw();
-        this.of3.Step();
-        pop();
+        // this.of3.Draw();
+        // this.of3.Step();
+        // pop();
     
     }
 
