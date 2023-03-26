@@ -45,7 +45,7 @@ class Enemy{
     }
 
     logic(player, map, hitSFX, sfxOn){
-        if(this.sprite.collide(player.spells)){
+        if(this.sprite.collide(player.arrows)){
             this.sprite.remove();
             if(sfxOn == true){
                 hitSFX.play();

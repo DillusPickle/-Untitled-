@@ -11,6 +11,7 @@ class Player{
 
         this.staff = createSprite(x,y,20,20);
         this.staff.addImage('sprite', this.staffimage);
+        this.arrowImg = loadImage('assets/arrow.png')
 
         this.sprite.maxSpeed = 8;
         this.sprite.velocity.y = 0;
@@ -38,7 +39,7 @@ class Player{
         this.charge = 0;
         this.bulletdistance = 20;
         this.bulletsize = [19, 3];
-        this.spells = new Group();
+        this.arrows = new Group();
 
         this.of;
 
@@ -98,14 +99,14 @@ class Player{
         //         atkSFX.play();
         //     }
             
-        //     var spell = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
-        //     spell.lifetime = this.bulletdistance;
-        //     //spell.visible = false;
-        //     spell.setCollider('rectangle',0,0,12,6)
-        //     spell.debug = true;
-        //     spell.attractionPoint(7, camera.mouseX, camera.mouseY);
-        //     spell.pointTo(camera.mouseX, camera.mouseY);
-        //     this.spells.add(spell);
+        //     var arrow = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
+        //     arrow.lifetime = this.bulletdistance;
+        //     //arrow.visible = false;
+        //     arrow.setCollider('rectangle',0,0,12,6)
+        //     arrow.debug = true;
+        //     arrow.attractionPoint(7, camera.mouseX, camera.mouseY);
+        //     arrow.pointTo(camera.mouseX, camera.mouseY);
+        //     this.arrows.add(arrow);
 
         //     this.cooldown = this.timer;
         // }
@@ -130,14 +131,16 @@ class Player{
         }
 
         if(this.charge >= 3){
-            var spell = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
-            //spell.lifetime = this.bulletdistance;
-            //spell.visible = false;
-            spell.setCollider('rectangle',0,0,12,6)
-            //spell.debug = true;
-            spell.attractionPoint(9, camera.mouseX, camera.mouseY);
-            spell.pointTo(camera.mouseX, camera.mouseY);
-            this.spells.add(spell);
+            var arrow = createSprite(this.sprite.x, this.sprite.y, this.bulletsize[0], this.bulletsize[1]);
+            //arrow.lifetime = this.bulletdistance;
+            //arrow.visible = false;
+            arrow.addImage('sprite', this.arrowImg);
+            arrow.setCollider('rectangle',0,0,12,6)
+            //arrow.debug = true;
+            arrow.attractionPoint(9, camera.mouseX, camera.mouseY);
+            arrow.pointTo(camera.mouseX, camera.mouseY);
+            arrow.rotation += 45;
+            this.arrows.add(arrow);
 
             this.cooldown = this.timer;
             this.charge = 0;
@@ -151,12 +154,12 @@ class Player{
         }
         
         // push();
-        // for(spell in this.spells){
-        //     this.of.CreateN(this.spells[spell].x, this.spells[spell].y);
+        // for(arrow in this.arrows){
+        //     this.of.CreateN(this.arrows[arrow].x, this.arrows[arrow].y);
 
-        //     this.of2.CreateN(this.spells[spell].x, this.spells[spell].y);
+        //     this.of2.CreateN(this.arrows[arrow].x, this.arrows[arrow].y);
 
-        //     this.of3.CreateN(this.spells[spell].x, this.spells[spell].y);
+        //     this.of3.CreateN(this.arrows[arrow].x, this.arrows[arrow].y);
         // }
         // this.of.Draw();
         // this.of.Step();
@@ -171,6 +174,15 @@ class Player{
     }
 
     healthLogic(){
+
+        this.hp1.x = this.sprite.x - 20;
+        this.hp1.y = this.sprite.y - 30;
+
+        this.hp2.x = this.sprite.x;
+        this.hp2.y = this.sprite.y - 35;
+
+        this.hp3.x = this.sprite.x + 20;
+        this.hp3.y = this.sprite.y - 30;
 
         switch(this.hp){
             case 3:
@@ -194,24 +206,24 @@ class Player{
                 this.hp1.visible = false;
         }
 
-        if(this.hp < 0){
-            this.hp = 0;
-        }
-        if(this.hp > 3){
-            this.hp = 3;
-        }
+        // if(this.hp < 0){
+        //     this.hp = 0;
+        // }
+        // if(this.hp > 3){
+        //     this.hp = 3;
+        // }
 
-        if(this.healingtimer > 0){
-            this.healingtimer -= 1;
-        }
+        // if(this.healingtimer > 0){
+        //     this.healingtimer -= 1;
+        // }
         
-        if(this.healingtimer == 0){
-            this.hp += 1;
-            this.healingtimer = this.healingtimercooldown;
-        }
+        // if(this.healingtimer == 0){
+        //     this.hp += 1;
+        //     this.healingtimer = this.healingtimercooldown;
+        // }
 
-        if(this.invincibility > 0){
-            this.invincibility -= 1;
-        }
+        // if(this.invincibility > 0){
+        //     this.invincibility -= 1;
+        // }
     }
 }
