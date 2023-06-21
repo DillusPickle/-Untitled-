@@ -24,7 +24,7 @@ function setup() {
 }
 
 function draw() {
-  background(rgb(115, 200, 200));
+  background(rgb(15, 0, 20));
 
   if(gameState == 'start'){
     player.sprite.visible = false;
